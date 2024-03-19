@@ -41,6 +41,12 @@ const run = ([workerPath, data], THREADS) => {
   );
 };
 
-const data = Array(3000).fill(0).map(Math.random);
+const data = Array(3e3).fill(0).map(Math.random);
 
-run(["./workers/customWorker.js", data], THREADS);
+console.log(`🚀 Running in ${THREADS} threads`);
+
+setInterval(() => {
+  console.log("\x1b[35m%s\x1b[0m", "⏲  Runing jobs in interval.");
+  run(["./workers/customWorker.js", data], THREADS);
+  console.log("\x1b[35m%s\x1b[0m", "❗ Exit jobs runner.");
+}, 1e3);
